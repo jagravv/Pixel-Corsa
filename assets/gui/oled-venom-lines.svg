@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" fill="none">
+  <defs>
+    <linearGradient id="threadRed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3d0610"/>
+      <stop offset="0.42" stop-color="#8e1023"/>
+      <stop offset="0.7" stop-color="#c1283c"/>
+      <stop offset="1" stop-color="#430711"/>
+    </linearGradient>
+    <linearGradient id="threadDim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1c0308"/>
+      <stop offset="0.5" stop-color="#68101c"/>
+      <stop offset="1" stop-color="#26040a"/>
+    </linearGradient>
+    <linearGradient id="threadHighlight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7f1020"/>
+      <stop offset="0.55" stop-color="#c82c42"/>
+      <stop offset="1" stop-color="#520b18"/>
+    </linearGradient>
+    <filter id="softGlow" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="1.25"/>
+    </filter>
+  </defs>
+
+  <!-- Fine, flowing threads: intentionally restrained so OLED black stays dominant. -->
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <!-- Upper-left layered strands -->
+    <g stroke="url(#threadDim)" stroke-width="2.2" opacity=".42">
+      <path d="M-70 132 C70 18 158 68 230 144 S362 264 474 194 S590 72 698 83"/>
+      <path d="M-65 153 C80 42 161 89 222 160 S352 282 472 211 S589 91 706 102"/>
+      <path d="M-52 174 C91 68 170 110 214 178 S345 300 461 233 S584 112 691 121"/>
+      <path d="M-43 198 C100 96 180 132 208 198 S330 321 448 252 S574 137 678 142"/>
+    </g>
+    <g stroke="url(#threadRed)" stroke-width="1.15" opacity=".4">
+      <path d="M-65 143 C77 31 155 78 226 151 S354 272 474 202 S589 81 700 92"/>
+      <path d="M-57 163 C87 54 166 99 218 168 S348 291 465 222 S585 101 697 111"/>
+      <path d="M-45 185 C94 81 174 120 211 188 S338 308 455 243 S579 122 685 132"/>
+      <path d="M-29 210 C108 106 188 143 205 208 S326 329 442 263 S569 147 675 153"/>
+    </g>
+
+    <!-- A few long, elegant curves across the upper third -->
+    <g stroke="url(#threadRed)" stroke-width="1.1" opacity=".32">
+      <path d="M180 -45 C292 90 351 160 468 159 S642 75 744 130 S872 267 1003 218 S1181 92 1322 113"/>
+      <path d="M204 -48 C314 84 368 147 482 148 S651 89 753 145 S876 280 1010 232 S1184 109 1330 130"/>
+      <path d="M228 -40 C335 78 388 134 493 137 S662 105 764 161 S885 293 1018 247 S1193 127 1338 149"/>
+    </g>
+
+    <!-- Right-side loops, kept near the edges and low in contrast -->
+    <g stroke="url(#threadDim)" stroke-width="2.4" opacity=".34">
+      <path d="M1680 30 C1538 18 1510 106 1554 176 S1595 260 1510 311 S1379 377 1414 449 S1545 512 1603 476"/>
+      <path d="M1662 52 C1545 37 1527 115 1566 178 S1598 254 1520 297 S1395 370 1429 436 S1544 492 1601 457"/>
+      <path d="M1660 700 C1544 635 1471 690 1491 759 S1553 841 1490 890 S1371 955 1376 1030"/>
+    </g>
+    <g stroke="url(#threadRed)" stroke-width="1.2" opacity=".38">
+      <path d="M1680 30 C1538 18 1510 106 1554 176 S1595 260 1510 311 S1379 377 1414 449 S1545 512 1603 476"/>
+      <path d="M1662 52 C1545 37 1527 115 1566 178 S1598 254 1520 297 S1395 370 1429 436 S1544 492 1601 457"/>
+      <path d="M1660 700 C1544 635 1471 690 1491 759 S1553 841 1490 890 S1371 955 1376 1030"/>
+      <path d="M1640 732 C1535 673 1488 713 1509 770 S1550 837 1483 875 S1391 949 1396 1022"/>
+    </g>
+
+    <!-- Thin diagonal filaments cross the middle softly, like taut silk threads -->
+    <g stroke="url(#threadHighlight)" stroke-width=".9" opacity=".26">
+      <path d="M-40 560 C152 505 238 414 390 436 S626 570 787 526 S1022 385 1185 421 S1420 526 1642 432"/>
+      <path d="M-40 580 C151 525 239 435 394 456 S628 590 790 547 S1029 405 1190 443 S1428 547 1645 455"/>
+      <path d="M-35 601 C156 548 244 455 399 477 S633 611 797 569 S1036 428 1197 465 S1433 568 1644 479"/>
+      <path d="M-30 620 C162 568 251 478 404 499 S640 631 802 590 S1043 450 1205 488 S1438 590 1644 503"/>
+    </g>
+    <g stroke="url(#threadDim)" stroke-width="2" opacity=".25">
+      <path d="M-70 760 C80 700 170 725 268 790 S426 915 536 842 S676 694 780 750 S918 873 1034 837"/>
+      <path d="M-65 779 C85 721 174 747 272 811 S429 936 541 862 S680 716 785 770 S923 893 1038 856"/>
+      <path d="M-58 798 C90 742 180 768 278 831 S435 955 547 882 S686 735 790 790 S928 912 1043 876"/>
+    </g>
+
+    <!-- Lower-left tapered loops, low opacity -->
+    <g stroke="url(#threadRed)" stroke-width="1.15" opacity=".34">
+      <path d="M-48 954 C92 885 158 799 139 729 S71 632 122 570 S261 516 316 562 S351 659 303 718"/>
+      <path d="M-37 974 C104 904 174 816 153 743 S89 648 139 590 S266 538 326 580 S364 672 318 734"/>
+      <path d="M-22 994 C117 924 189 835 170 760 S108 664 156 611 S275 559 338 599 S378 685 334 748"/>
+    </g>
+
+    <!-- Sparse highlights: hairline red glints, no chunky neon bars -->
+    <g stroke="#bd253b" stroke-width=".7" opacity=".42">
+      <path d="M20 112 C91 63 140 75 185 118"/>
+      <path d="M87 222 C151 185 203 199 249 243"/>
+      <path d="M525 152 C592 117 645 120 693 145"/>
+      <path d="M1090 432 C1168 403 1230 414 1290 447"/>
+      <path d="M1389 368 C1423 340 1451 323 1488 314"/>
+      <path d="M1500 803 C1532 770 1568 769 1608 797"/>
+      <path d="M182 744 C220 711 259 709 290 736"/>
+    </g>
+    <g stroke="#bb2239" stroke-width="1.4" filter="url(#softGlow)" opacity=".13">
+      <path d="M-45 154 C95 47 167 97 220 171 S348 288 466 220 S585 101 697 111"/>
+      <path d="M-35 601 C156 548 244 455 399 477 S633 611 797 569 S1036 428 1197 465 S1433 568 1644 479"/>
+      <path d="M-48 954 C92 885 158 799 139 729 S71 632 122 570 S261 516 316 562 S351 659 303 718"/>
+    </g>
+  </g>
+</svg>

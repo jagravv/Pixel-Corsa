@@ -1,0 +1,14 @@
+{
+  "name": "pixel-corsa-lan-server",
+  "version": "0.4.1",
+  "private": true,
+  "description": "Pixel Corsa browser racing game with time attack, ghost replay and LAN multiplayer",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check game.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

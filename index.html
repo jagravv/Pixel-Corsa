@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" data-gui-theme="oled">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="application-name" content="Pixel Corsa">
+  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/upheaval">
+  <meta name="apple-mobile-web-app-title" content="Pixel Corsa">
+  <title>Pixel Corsa</title>
+  <link rel="icon" type="image/png" sizes="318x318" href="assets/icon.png">
+  <link rel="shortcut icon" type="image/png" href="assets/icon.png">
+  <link rel="apple-touch-icon" href="assets/icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="game" width="800" height="400" aria-label="Pixel Racer game" hidden></canvas>
+  <main id="menu" class="screen">
+    <section id="mainPage" class="page active">
+      <h1 class="brand-heading">
+        <img class="brand-logo brand-logo-dark" src="assets/pixel-corsa-logo.png" alt="Pixel Corsa">
+        <img class="brand-logo brand-logo-light" src="assets/pixel-corsa-logo-light.png" alt="Pixel Corsa">
+      </h1>
+      <nav class="main-buttons" aria-label="Main menu">
+        <button id="playButton" class="menu-image-button" type="button" aria-label="Play"><img src="assets/menu-play.png" alt=""></button>
+        <button id="settingsButton" class="menu-image-button" type="button" aria-label="Settings"><img src="assets/menu-settings.png" alt=""></button>
+        <button id="quitButton" class="menu-image-button" type="button" aria-label="Quit"><img src="assets/menu-quit.png" alt=""></button>
+      </nav>
+      <p id="quitFallback" class="notice" hidden>Your browser blocked automatic closing. You can close this tab now.</p>
+      <a class="discord-link" href="https://discord.gg/evAQx4rEet" target="_blank" rel="noopener noreferrer" aria-label="Join the Pixel Corsa Discord" title="Join our Discord">
+        <img src="assets/discord-icon.png" alt="">
+      </a>
+      <button id="experimentalMenuButton" class="experimental-gui-button" type="button" aria-label="Open experimental modes" title="Experimental modes">
+        <img src="textures/experimental_gui.png" alt="">
+      </button>
+    </section>
+    <section id="experimentalPage" class="page">
+      <button class="back-button" data-page="main">Back</button>
+      <h1>EXPERIMENTAL</h1>
+      <p class="settings-hint">Experimental game modes</p>
+      <nav class="main-buttons experimental-buttons" aria-label="Experimental modes">
+        <button id="timeAttackButton" type="button">Time Attack</button>
+        <button id="multiplayerButton" type="button">Multiplayer</button>
+      </nav>
+    </section>
+    <section id="timeAttackPage" class="page">
+      <button class="back-button" data-page="main">Back</button>
+      <h1>TIME ATTACK</h1>
+      <p class="settings-hint">Choose a circuit, set a personal best, then chase your saved lap. Records stay in this browser.</p>
+      <div class="lan-form">
+        <label class="lan-field" for="timeAttackTrack"><span>Track</span><select id="timeAttackTrack"><option value="tck01">TCK-01</option><option value="tck02">TCK-02</option></select></label>
+        <label class="lan-field" for="timeAttackGhost"><span>Ghost replay</span><select id="timeAttackGhost"><option value="on">Saved ghost: On</option><option value="off">Saved ghost: Off</option></select></label>
+      </div>
+      <div class="lan-status time-attack-stats" id="timeAttackStats" aria-live="polite" aria-label="Time Attack records">Loading personal records…</div>
+      <div class="lan-actions"><button id="startTimeAttackButton">Start Time Attack</button><button id="timeAttackResetStatsButton">Reset Stats</button></div>
+      <p class="settings-hint time-attack-footnote">Your first valid lap establishes the reference sectors. Later laps show live sector times and delta. Press R to restart; invalid laps never update your records.</p>
+    </section>
+    <section id="pausePage" class="page" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+      <h1 id="pauseTitle">PAUSED</h1>
+      <nav class="main-buttons pause-buttons" aria-label="Paused game menu">
+        <button id="resumeButton">Resume</button>
+        <button id="restartSessionButton">Restart Session</button>
+        <button id="lanReturnLobbyButton" hidden>Return to Lobby</button>
+        <button id="pauseMainMenuButton">Main Menu</button>
+      </nav>
+      <p class="settings-hint pause-hint">The race is frozen. Resume to continue, restart for a fresh lap, or return to the main menu to end this session.</p>
+    </section>
+    <section id="levelsPage" class="page">
+      <button class="back-button" data-page="main">Back</button>
+      <h1>SELECT A TRACK</h1>
+      <div class="track-cards">
+        <button id="levelButton" class="level-card" data-track-id="tck01" aria-label="Race on TCK-01">
+          <span class="track-preview">
+            <img src="assets/tracks/TCK-01.png" alt="Preview of the TCK-01 race track">
+            <span class="track-title">TCK-01</span>
+          </span>
+          <span class="track-card-description">
+            <span class="track-description">A short, technical circuit. Nail the braking points and carry speed through the bends.</span>
+            <small class="track-best" data-track-best="tck01">PB --:--.--</small>
+          </span>
+          <span class="medal-strip" data-medal-track="tck01" aria-label="TCK-01 medal progress">
+            <span class="medal-badge" data-medal="copper" title="Copper medal target"><img src="assets/medals/copper_coin.png" alt=""><span class="medal-copy"><small>COPPER</small><small class="medal-target">0:55.00</small></span></span>
+            <span class="medal-badge" data-medal="iron" title="Iron medal target"><img src="assets/medals/iron_coin.png" alt=""><span class="medal-copy"><small>IRON</small><small class="medal-target">0:37.00</small></span></span>
+            <span class="medal-badge" data-medal="gold" title="Gold medal target"><img src="assets/medals/gold_coin.png" alt=""><span class="medal-copy"><small>GOLD</small><small class="medal-target">0:35.50</small></span></span>
+            <span class="medal-badge medal-badge-corsa" data-medal="corsa" title="Corsa Medal target — Author Medal equivalent"><img src="assets/medals/corsa_coin.png" alt="Corsa medal"><span class="medal-copy"><small>CORSA</small><small class="medal-target">LOCKED</small></span></span>
+          </span>
+        </button>
+        <button id="levelButtonTck02" class="level-card" data-track-id="tck02" aria-label="Race on TCK-02">
+          <span class="track-preview">
+            <img src="assets/tracks/TCK-02-wide-preview.png" alt="Preview of the wide TCK-02 race track">
+            <span class="track-title">TCK-02</span>
+          </span>
+          <span class="track-card-description">
+            <span class="track-description">A wide GP circuit with long straights, fast corners and two marked DRS zones.</span>
+            <small class="track-best" data-track-best="tck02">PB --:--.--</small>
+          </span>
+          <span class="medal-strip" data-medal-track="tck02" aria-label="TCK-02 medal progress">
+            <span class="medal-badge" data-medal="copper" title="Copper medal target"><img src="assets/medals/copper_coin.png" alt=""><span class="medal-copy"><small>COPPER</small><small class="medal-target">2:20.00</small></span></span>
+            <span class="medal-badge" data-medal="iron" title="Iron medal target"><img src="assets/medals/iron_coin.png" alt=""><span class="medal-copy"><small>IRON</small><small class="medal-target">2:00.00</small></span></span>
+            <span class="medal-badge" data-medal="gold" title="Gold medal target"><img src="assets/medals/gold_coin.png" alt=""><span class="medal-copy"><small>GOLD</small><small class="medal-target">1:57.00</small></span></span>
+            <span class="medal-badge medal-badge-corsa" data-medal="corsa" title="Corsa Medal target — Author Medal equivalent"><img src="assets/medals/corsa_coin.png" alt="Corsa medal"><span class="medal-copy"><small>CORSA</small><small class="medal-target">LOCKED</small></span></span>
+          </span>
+        </button>
+      </div>
+    </section>
+    <section id="multiplayerPage" class="page">
+      <button class="back-button" data-page="main">Back</button>
+      <h1>LAN MULTIPLAYER</h1>
+      <p id="lanMultiplayerHint" class="settings-hint">Race with up to four players on the same local network. Everyone opens the host's LAN address.</p>
+      <div class="lan-status" id="lanStatus" role="status" aria-live="polite">LAN multiplayer is ready to configure.</div>
+      <p id="lanAddressNotice" class="settings-hint lan-address-notice">Start the server to see the LAN address.</p>
+      <div class="lan-form">
+        <label class="lan-field" for="lanPlayerName"><span>Driver Name</span><input id="lanPlayerName" type="text" maxlength="16" autocomplete="nickname" value="Driver"></label>
+        <label class="lan-field" for="lanLiverySelect"><span>Your Car</span><select id="lanLiverySelect"><option value="redbull">Red Bull</option><option value="ferrari">Ferrari</option><option value="mclaren">McLaren</option></select></label>
+        <label class="lan-field" for="lanHostTrack"><span>Track (host setting)</span><select id="lanHostTrack"><option value="tck01">TCK-01</option><option value="tck02">TCK-02</option></select></label>
+        <label class="lan-field" for="lanRaceLength"><span>Session (host setting)</span><select id="lanRaceLength"><option value="practice">Free Run</option><option value="3" selected>3-Lap Sprint</option><option value="5">5-Lap GP</option></select></label>
+      </div>
+      <div class="lan-actions">
+        <button id="lanHostButton">Host LAN Room</button>
+      </div>
+      <div class="lan-join-box">
+        <label class="lan-field" for="lanRoomCodeInput"><span>Room Code</span><input id="lanRoomCodeInput" type="text" maxlength="4" placeholder="ABCD" autocomplete="off" inputmode="text"></label>
+        <button id="lanJoinButton">Join Room</button>
+      </div>
+      <p class="settings-hint lan-footnote">LAN-only for now. The host runs Start-Pixel-Corsa-LAN.bat and shares the displayed http://LAN-IP:3000 address. All drivers must use that exact address while connected to the same Wi-Fi or Ethernet network.</p>
+    </section>
+    <section id="lanLobbyPage" class="page">
+      <button id="lanLobbyLeaveButton" class="back-button">Leave</button>
+      <h1>RACE LOBBY</h1>
+      <div class="lan-room-header">
+        <div class="lan-room-code"><small>ROOM CODE</small><strong id="lanRoomCodeLabel">----</strong></div>
+        <button id="lanCopyAddressButton" class="small-action">Copy LAN Address</button>
+      </div>
+      <p id="lanLobbyAddress" class="settings-hint lan-address-notice">Share the host's LAN URL with every driver.</p>
+      <p id="lanLobbyStatus" class="lan-status" role="status" aria-live="polite">Waiting for drivers...</p>
+      <div class="lan-lobby-options">
+        <label class="lan-field" for="lanLobbyTrack"><span>Track</span><select id="lanLobbyTrack"><option value="tck01">TCK-01</option><option value="tck02">TCK-02</option></select></label>
+        <label class="lan-field" for="lanLobbyRaceLength"><span>Session</span><select id="lanLobbyRaceLength"><option value="practice">Free Run</option><option value="3">3-Lap Sprint</option><option value="5">5-Lap GP</option></select></label>
+        <label class="lan-field" for="lanLobbyLivery"><span>Your Car</span><select id="lanLobbyLivery"><option value="redbull">Red Bull</option><option value="ferrari">Ferrari</option><option value="mclaren">McLaren</option></select></label>
+      </div>
+      <h2 class="lan-section-title">DRIVERS <span id="lanPlayerCount">0 / 4</span></h2>
+      <div id="lanPlayerList" class="lan-player-list" aria-live="polite"></div>
+      <div class="lan-actions lan-lobby-actions">
+        <button id="lanReadyButton">Ready</button>
+        <button id="lanStartButton" disabled>Start Race</button>
+      </div>
+      <p class="settings-hint lan-footnote">Host chooses the circuit and session length. Everyone must be ready before the host starts. Races synchronise with a short countdown.</p>
+    </section>
+    <section id="settingsPage" class="page">
+      <button class="back-button" data-page="main">Back</button>
+      <h1>SETTINGS</h1>
+      <nav class="settings-tabs" aria-label="Settings sections">
+        <button type="button" class="settings-tab active" data-settings-tab="controls">Controls</button>
+        <button type="button" class="settings-tab" data-settings-tab="car">Car</button>
+        <button type="button" class="settings-tab" data-settings-tab="customize">Customize</button>
+      </nav>
+      <div id="controlsPanel" class="settings-panel active">
+        <label class="gearbox-setting" for="gearboxType">
+          <span>Gearbox</span>
+          <select id="gearboxType">
+            <option value="clutch">Clutch manual</option>
+            <option value="sequential">Sequential</option>
+          </select>
+        </label>
+        <p id="gearboxHint" class="settings-hint">Hold the clutch for every shift. Release it gradually when pulling away.</p>
+        <p class="settings-hint">Select a binding, then press a letter, number, or arrow key. Browser shortcut keys are excluded.</p>
+        <div id="controls" class="controls"></div>
+        <p id="bindingNotice" class="notice" aria-live="polite"></p>
+      </div>
+      <div id="carPanel" class="settings-panel">
+        <p id="liveryIntro" class="settings-hint customize-intro">Choose your car livery. The car's shape and handling are fixed.</p>
+        <div id="liveryList" class="livery-list" role="group" aria-label="Car liveries"></div>
+      </div>
+      <div id="customizePanel" class="settings-panel">
+        <p class="settings-hint customize-intro">Adjust the racing HUD colors. Your choices are saved on this device.</p>
+        <label class="customize-row" for="accentColor">
+          <span>Accent Color</span><input id="accentColor" type="color" value="#d8c99a">
+        </label>
+        <label class="customize-row" for="backgroundColor">
+          <span>Background Color</span><input id="backgroundColor" type="color" value="#17212b">
+        </label>
+        <label class="customize-row" for="guiTheme">
+          <span>GUI Block Theme</span>
+          <select id="guiTheme">
+            <option value="dark">Dark</option>
+            <option value="oled" selected>OLED Black</option>
+            <option value="light">Light</option>
+          </select>
+        </label>
+        <label class="customize-row opacity-row" for="backgroundOpacity">
+          <span>Background Opacity <output id="opacityValue" for="backgroundOpacity">100%</output></span>
+          <input id="backgroundOpacity" type="range" min="20" max="100" step="1" value="100">
+        </label>
+      </div>
+    </section>
+  </main>
+  <script src="assets/track_mask.js"></script>
+  <script src="assets/tracks/TCK-02-mask.js"></script>
+  <script src="rpc-bridge.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

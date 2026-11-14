@@ -1,0 +1,82 @@
+PIXEL CORSA — PROJECT METADATA
+
+Release: v0.4.1 LAN Multiplayer + Menu Update
+Date: 2026-11-14
+Project Type: Browser-based top-down racing game with optional LAN multiplayer
+Entry Point: index.html
+Technology: HTML5, CSS, JavaScript Canvas, Node.js built-in HTTP/WebSocket server
+
+RELEASE NOTES (v0.4.0)
+----------------------
+- Added LAN Multiplayer to the main menu.
+- Added private 4-character rooms, 2–4 player lobbies, driver names, team liveries, ready checks, host-controlled track/session selection and synchronized race starts.
+- Added Free Run, 3-Lap Sprint and 5-Lap GP session formats.
+- Added live opponent cars with Red Bull, Ferrari and McLaren sprite variants, driver nameplates, smoothing, lap/speed/gear/DRS state relay and race finishing positions.
+- Added return-to-lobby flow for the host, room cleanup on leaving/disconnect and host migration if the host leaves.
+- Added a same-origin LAN HTTP/WebSocket server (server.js) and Windows launcher (Start-Pixel-Corsa-LAN.bat).
+- Multiplayer server has no npm dependencies; only the host PC needs Node.js 18 or newer. Other players need only a browser on the same LAN.
+- LAN mode is intentionally limited to devices on the same Wi-Fi/Ethernet network. Public internet tunneling is not included in this release.
+- Preserved TCK-01/TCK-02, physics, DRS, track limits, medals, McLaren/Red Bull/Ferrari liveries, GUI themes, pause menu and Discord RPC bridge.
+
+
+RELEASE NOTES (v0.4.1)
+----------------------
+- Added theme-aware Pixel Corsa logos, using the light logo in Light mode and the original logo in Dark/OLED modes.
+- Replaced the main menu's Play, Settings and Quit text controls with the supplied pixel-art button images and refined their sizing and spacing to fit without a scrollbar.
+- Updated the Discord icon while preserving its size, position and invite-link behavior.
+- Added the Experimental menu icon and entry point for Time Attack and Multiplayer.
+- Matched Back button typography to the pixel style used by the other menu buttons.
+
+TRACKS AND MEDALS
+-----------------
+TCK-01:
+  Copper: 0:55.00
+  Iron:   0:37.00
+  Gold:   0:35.50
+  Corsa:  0:34.00 (hidden until earned)
+
+TCK-02:
+  Copper: 2:20.00
+  Iron:   2:00.00
+  Gold:   1:57.00
+  Corsa:  1:53.21 (hidden until earned)
+
+LAN HOST SETUP
+--------------
+1. Install Node.js 18 or newer on the host PC only: https://nodejs.org/
+2. Extract the complete project and double-click Start-Pixel-Corsa-LAN.bat.
+3. If Windows Firewall asks, allow Node.js on Private networks only.
+4. Open one of the http://<LAN-IP>:3000 addresses printed by the server. Do not share localhost with other PCs.
+5. The host selects Multiplayer > Host LAN Room. Friends on the same local network open that exact LAN address, select Multiplayer > Join Room, and enter the 4-character code.
+6. Everyone must use the host's LAN-served page, not the public Netlify URL, during this LAN-only release.
+7. Close the server window to stop hosting.
+
+DEFAULT CONTROLS
+----------------
+W: Accelerate
+S: Brake / Reverse
+A / D: Steer
+C: Clutch
+E: Upshift
+Q: Downshift
+I: Start / Restart Engine
+F: DRS
+R: Reset Car
+ESC: Pause / Resume
+
+PROJECT FILES
+-------------
+- index.html, style.css, game.js: game client
+- server.js: LAN HTTP server, room service and WebSocket relay
+- Start-Pixel-Corsa-LAN.bat: Windows launcher
+- package.json: project metadata and scripts (no npm dependencies)
+- assets/: tracks, cars, GUI, sound and medal artwork
+- rpc-bridge.js: optional Discord Rich Presence browser bridge
+
+Notes:
+- The LAN server relays client physics snapshots; it is designed for casual trusted-LAN racing, not cheat-resistant competitive play.
+- Best laps, medals, settings and the selected livery remain browser-local and do not sync across devices.
+- Use the complete project folder for hosting; keep index.html at the project root.
+
+
+v0.4.0 introduced Time Attack, local PB ghost recording/replay, live distance-matched delta, distance-based sector progress, and local driver statistics. Existing LAN multiplayer and track/car assets were retained.

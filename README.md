@@ -1,53 +1,46 @@
-<p align="center">
-  <a href="https://pixelcorsa.netlify.app">
-    <img src="https://cdn.modrinth.com/data/cached_images/8ec0d0f2ba2a08c4a8a2cb8eea9800687c23ea9c_0.webp"
-         alt="Pixel Corsa"
-         width="100%" />
-  </a>
-</p>
-# Pixel Corsa
+# Pixel Corsa v0.4.1
 
-1. Version: v0.4.0
-2. Last Updated: 14th November 2026
-3. Developer: Jagrav 
+Pixel Corsa now includes an optional LAN multiplayer server. The game is still a static HTML/CSS/JS project, but LAN racing is enabled when the game is opened from the host PC's local server rather than from the public HTTPS website.
 
-### Overview
-Pixel Corsa is a Indie, top-down 2D pixelated game, inspired from actual Simulators and Trackmania with arcady physics and proper delta times/sector times
+## Fast start (Windows host)
 
-### Circuits
-1. TCK-01 
-2. TCK-02
+1. Install [Node.js 18 or newer](https://nodejs.org/) on the host PC. Other players do not need Node.js.
+2. Extract this whole project folder.
+3. Double-click `Start-Pixel-Corsa-LAN.bat`.
+4. If Windows Firewall prompts, permit Node.js on **Private networks only**.
+5. The terminal prints URLs like `http://192.168.1.25:3000`. Open one on the host PC and give that exact LAN URL to friends on the same Wi-Fi/Ethernet LAN.
+6. In the game, choose **Multiplayer → Host LAN Room**. Friends choose **Multiplayer → Join Room** and enter the 4-character room code.
+7. Host chooses TCK-01/TCK-02 and Free Run, 3-Lap Sprint or 5-Lap GP. Each guest picks a livery and must mark Ready before the host starts.
 
-### Technical Details
-- Language: HTML, CSS and JavaScript
-- Rendering: Rendered with the browser’s Canvas 2D API at an 800×400 game resolution
-- Framework: NO framework is used, only vanilla JavaScript with HTML and CSS
-- Multiplayer: Early developmental LAN available
+The server serves the website and its WebSocket endpoint from the same origin, so this LAN setup does not need TLS certificates, port forwarding, npm installs or any tunnel service. This build intentionally does not expose multiplayer over the public internet.
 
-### Controls
-1. Accelerate - W
-2. Brake/Reverse - S
-3. Steer Left - A
-4. Steer Right - D
-5. Clutch (hold) - C
-6. Upshift - E
-7. Downshift - Q
-8. Start/Restart Engine - I
-9. DRS (toggle) - F
-10. Reset Car - R
-*These are the default key bindings, you can bind the keys*
+## v0.4.1 Menu update
 
-### Multiplayer
-Pixel Corsa’s multiplayer is LAN-only and uses a small Node.js server with WebSockets
-1. The host will run the batch file Start-Pixel-Corsa-LAN.bat. This will start the server, which will show an IP address, typically port 3000. 
-2. Everyone connects to the same IP address on their own device whilst connected to the same Wi-Fi/Ethernet network. 
-3. The host will create a room, which gives them a 4 digit code. Up to 4 players can join the room. They can then select their driver name, livery and get ready. 
-4. Once everyone is ready, the host will select the track and race type (Free Run, 3 lap Sprint or 5 lap GP). A synced countdown will begin. 
-5. Each browser will simulate their own car. The server will receive updates from each player and send them to the other browsers. The server has validation and rate limiting in place but is intended for casual local multiplayer. It does not allow online matchmaking, players must be on the same local network as the host.
-*Note: This is a very early in developmental version of the LAN Multiplayer version, features like car collision and public multiplayer is still not implemented. Bugs may be there too*
+- Added the themed Pixel Corsa logos and supplied pixel-art Play, Settings, and Quit menu buttons.
+- Refined menu sizing and spacing, updated the Discord icon, and added the Experimental menu entry for Time Attack and Multiplayer.
 
-### Future Plans
-In the near future: 
-1. Public multiplayer version with car collision and proper races
-2. Improved GUI
-3. More tracks and road courses
+Time-trial records and ghost samples are stored in browser localStorage and are local to that browser profile. The sector markers are derived from the saved ghost lap's driven distance, rather than separately authored physical track gates.
+
+## What's included
+
+- Private room codes, 2–4 drivers, name/livery preferences, ready status and host-controlled settings
+- Synchronized countdown, live remote car sprites, driver nameplates and LAN room HUD
+- Practice and 3-/5-lap sessions, finish order/results, host return-to-lobby and host migration
+- Dependency-free Node.js server using built-in HTTP and WebSocket handling
+
+## Troubleshooting
+
+- **Use the LAN URL, not Netlify.** The public `https://pixelcorsa.netlify.app/` site is not connected to your local LAN server.
+- **Never share `http://localhost:3000` with another PC.** `localhost` means that player's own device. Share the host's `http://<host-LAN-IP>:3000` URL printed by the server.
+- If friends cannot load the page, check they are on the same non-guest Wi-Fi/Ethernet network and allow Node.js through Windows Firewall on Private networks.
+- If port 3000 is occupied, close the other service or start the server with a different port, for example `set PORT=3001` in Command Prompt before running `node server.js`; then tell every player to use that port.
+- Room codes work only while the host server is running. Closing the server ends all rooms.
+
+## Technical notes
+
+- WebSocket endpoint: `/multiplayer`
+- Health endpoint: `/health`
+- LAN server default port: `3000`
+- Maximum room size: 4 players
+- Network updates are rate limited and the server validates message shapes/ranges. Movement is client-simulated and relayed, so this version is intended for trusted local play, not competitive anti-cheat.
+
