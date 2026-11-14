@@ -1,3 +1,10 @@
+<p align="center">
+  <a href="https://pixelcorsa.netlify.app">
+    <img src="https://cdn.modrinth.com/data/cached_images/8ec0d0f2ba2a08c4a8a2cb8eea9800687c23ea9c_0.webp"
+         alt="Pixel Corsa"
+         width="100%" />
+  </a>
+</p>
 # Pixel Corsa
 
 1. Version: v0.4.1
