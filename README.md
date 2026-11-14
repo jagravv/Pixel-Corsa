@@ -46,7 +46,6 @@ Pixel Corsa’s multiplayer is LAN-only and uses a small Node.js server with Web
 4. Once everyone is ready, the host will select the track and race type (Free Run, 3 lap Sprint or 5 lap GP). A synced countdown will begin. 
 5. Each browser will simulate their own car. The server will receive updates from each player and send them to the other browsers. The server has validation and rate limiting in place but is intended for casual local multiplayer. It does not allow online matchmaking, players must be on the same local network as the host.
 *Note: This is a very early in developmental version of the LAN Multiplayer version, features like car collision and public multiplayer is still not implemented. Bugs may be there too*
-
 ### Future Plans
 In the near future: 
 1. Public multiplayer version with car collision and proper races
